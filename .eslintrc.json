@@ -1,15 +1,16 @@
 {
   "env": {
     "browser": true,
-    "commonjs": true,
-    "es2021": true
+    "es2022": true,
+    "node": true
   },
-  "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
   "extends": ["airbnb-base", "prettier"],
   "parserOptions": {
-    "ecmaVersion": 12
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "rules": {
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "no-console": "off",
     "quotes": ["error", "single"]
   }
