@@ -1,4 +1,5 @@
 const path = require('path');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -8,7 +9,10 @@ module.exports = {
   },
 
   plugins: [
-    new Dotenv(),
+    new Dotenv({
+      path: './.env',
+      systemvars: true,
+    }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
     }),

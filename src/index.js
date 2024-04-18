@@ -1,3 +1,4 @@
+import queryForecastWeather from './modules/queryForecastWeather.js';
 import './style.css';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -6,40 +7,20 @@ if (process.env.NODE_ENV !== 'production') {
   console.log('We are in production mode!');
 }
 
-const API_KEY = process.env.WEATHER_API_KEY;
-const BASE_URL = 'http://api.weatherapi.com/v1';
+// mock query
+const defaultQuery = queryForecastWeather('seattle');
+console.log(defaultQuery);
 
-// need weather description, icon code, hi, lo
-const processWeatherData = (data) => {
-  const {current, location} = data;
-  // const {condition} = current;
-  // console.log(current);
-  // console.log(location);
-  // console.log(condition);
-  
-  const processed = {
-    condition: current.condition,
-    country: location.country,
-    name: location.name,
-    region: location.region,
-    temp: current.temp_f
-  }
+const contentDiv = document.getElementById('content');
+const locationInput = document.createElement('input');
+const locationButton = document.createElement('button');
 
-  return processed;
-}
+locationButton.textContent = 'Search Location';
+locationButton.addEventListener('click', () => {
+  const location = locationInput.value;
+  const locationForecast = queryForecastWeather(location);
+  console.log(locationForecast);
+});
 
-async function getCurrentWeather(location) {
-  try {
-    const response = await fetch(`${BASE_URL}/current.json?key=${API_KEY}&q=${location}`);
-    const weatherData = await response.json();
-    // console.log(weatherData);
-    const processedData = processWeatherData(weatherData);
-    console.log(processedData);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-
-
-getCurrentWeather('seattle');
+contentDiv.appendChild(locationInput);
+contentDiv.appendChild(locationButton);
