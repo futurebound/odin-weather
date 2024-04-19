@@ -1,8 +1,9 @@
 
 // need weather description, icon code, hi, lo
 const processWeatherData = (data) => {
-  const {current, forecast, location} = data;
+  if (data === null) return data;
 
+  const {current, forecast, location} = data;
   const cleanForecast = forecast.forecastday.map(day => {
     const cleanDay = {
       date: day.date,
