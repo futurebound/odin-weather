@@ -1,6 +1,6 @@
 import queryForecastWeather from './queryForecastWeather.js';
 
-const renderForecast = () => {
+const renderAllWeather = () => {
   const contentDiv = document.getElementById('content');
   const locationInput = document.createElement('input');
   const locationButton = document.createElement('button');
@@ -9,14 +9,23 @@ const renderForecast = () => {
   locationButton.addEventListener('click', () => {
     // PROMISE HANDLE STYLE w/ .then() since queryForecastWeater exports async function
     const location = locationInput.value;
-    const forecast = queryForecastWeather(location)
-      .then((response) => {
-        console.log(response);
+    queryForecastWeather(location).then((response) => {
+      console.log(response);
+      if (response !== null) {
+        const { condition, country, currentTemp, forecast, name, region } =
+          response;
+        const currentDiv = document.createElement('div');
+        const forecastDiv = document.createElement('div');
+      }
     });
   });
-  
+
   contentDiv.appendChild(locationInput);
   contentDiv.appendChild(locationButton);
-}
+};
 
-export default renderForecast;
+const renderForecast = (forecast) => {
+  const forecastDiv = document.createElement('div');
+};
+
+export default renderAllWeather;

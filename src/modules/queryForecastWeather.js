@@ -6,7 +6,9 @@ const BASE_URL = process.env.WEATHER_BASE_URL;
 async function queryForecastWeather(location) {
   let output = null;
   try {
-    const response = await fetch(`${BASE_URL}/forecast.json?key=${API_KEY}&q=${location}&days=3`);
+    const response = await fetch(
+      `${BASE_URL}/forecast.json?key=${API_KEY}&q=${location}&days=3`
+    );
     // console.log(response);
     if (!response.ok) {
       console.log(`Error code ${response.status}: ${response.statusText}`);

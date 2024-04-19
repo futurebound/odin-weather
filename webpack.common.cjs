@@ -1,9 +1,8 @@
 const path = require('path');
-// eslint-disable-next-line import/no-extraneous-dependencies
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = { 
+module.exports = {
   entry: {
     app: './src/index.js',
   },

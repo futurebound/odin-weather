@@ -11,8 +11,8 @@
   },
   "rules": {
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
-    "import/extensions": [],
+    "import/extensions": ["error", "always", { "ignorePackages": true }],
     "no-console": "off",
-    "quotes": ["error", "single"]
+    "quotes": ["error", "single", { "avoidEscape": true }]
   }
 }

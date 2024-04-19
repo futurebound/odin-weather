@@ -1,5 +1,4 @@
-import queryForecastWeather from './modules/queryForecastWeather.js';
-import renderForecast from './modules/renderForecast.js';
+import renderAllWeather from './modules/renderAllWeather.js';
 import './style.css';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -11,4 +10,4 @@ if (process.env.NODE_ENV !== 'production') {
 // mock query
 // const defaultQuery = queryForecastWeather('seattle');
 // console.log(defaultQuery);
-renderForecast();
+renderAllWeather();
