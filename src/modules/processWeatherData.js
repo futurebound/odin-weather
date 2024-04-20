@@ -16,11 +16,9 @@ const processWeatherData = (data) => {
 
   const processed = {
     condition: current.condition,
-    country: location.country,
-    name: location.name,
-    region: location.region,
     currentTemp: current.temp_f,
     forecast: cleanForecast,
+    location,
   };
 
   return processed;

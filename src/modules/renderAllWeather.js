@@ -1,32 +1,35 @@
 import queryForecastWeather from './queryForecastWeather.js';
 
-const renderAllWeather = () => {
-  const contentDiv = document.getElementById('content');
-  const locationInput = document.createElement('input');
-  const locationButton = document.createElement('button');
+const renderCurrentWeather = (condition, currentTemp, location) => {
+  const currentDiv = document.createElement('div');
 
-  locationButton.textContent = 'Search Location';
-  locationButton.addEventListener('click', () => {
-    // PROMISE HANDLE STYLE w/ .then() since queryForecastWeater exports async function
-    const location = locationInput.value;
-    queryForecastWeather(location).then((response) => {
-      console.log(response);
-      if (response !== null) {
-        const { condition, country, currentTemp, forecast, name, region } =
-          response;
-        const currentDiv = document.createElement('div');
-        const forecastDiv = renderForecast(forecast);
+  // const date = document.createElement('p');
+  const name = document.createElement('p');
+  const region = document.createElement('p');
+  const country = document.createElement('p');
+  const icon = document.createElement('img');
+  const description = document.createElement('p');
+  const temp = document.createElement('p');
 
-        contentDiv.appendChild(forecastDiv);
-      }
-    });
-  });
+  // date.textContent = day.date;
+  name.textContent = location.name;
+  region.textContent = location.region;
+  country.textContent = location.country;
+  icon.src = condition.icon;
+  description.textContent = condition.text;
+  temp.textContent = `Current Temp: ${currentTemp} °F`;
 
-  contentDiv.appendChild(locationInput);
-  contentDiv.appendChild(locationButton);
+  currentDiv.appendChild(name);
+  currentDiv.appendChild(region);
+  currentDiv.appendChild(country);
+  currentDiv.appendChild(icon);
+  currentDiv.appendChild(description);
+  currentDiv.appendChild(temp);
+
+  return currentDiv;
 };
 
-const renderForecast = (forecast) => {
+const renderForecastWeather = (forecast) => {
   const forecastDiv = document.createElement('div');
   const days = forecast.map((day) => {
     const dayDiv = document.createElement('div');
@@ -34,19 +37,16 @@ const renderForecast = (forecast) => {
     console.log(day);
 
     const date = document.createElement('p');
-    date.textContent = day.date;
-
     const icon = document.createElement('img');
-    icon.src = day.condition.icon;
-
     const description = document.createElement('p');
-    description.textContent = day.condition.text;
-
     const maxTemp = document.createElement('p');
-    maxTemp.textContent = `High: ${day.maxTemp}`;
-
     const minTemp = document.createElement('p');
-    minTemp.textContent = `Low: ${day.minTemp}`;
+
+    date.textContent = day.date;
+    icon.src = day.condition.icon;
+    description.textContent = day.condition.text;
+    maxTemp.textContent = `High: ${day.maxTemp} °F`;
+    minTemp.textContent = `Low: ${day.minTemp} °F`;
 
     dayDiv.appendChild(date);
     dayDiv.appendChild(icon);
@@ -62,6 +62,36 @@ const renderForecast = (forecast) => {
   });
 
   return forecastDiv;
+};
+
+const renderAllWeather = () => {
+  const contentDiv = document.getElementById('content');
+  const locationInput = document.createElement('input');
+  const locationButton = document.createElement('button');
+
+  locationButton.textContent = 'Search Location';
+  locationButton.addEventListener('click', () => {
+    // PROMISE HANDLE STYLE w/ .then() since queryForecastWeater exports async function
+    const searchLocation = locationInput.value;
+    queryForecastWeather(searchLocation).then((response) => {
+      console.log(response);
+      if (response !== null) {
+        const { condition, currentTemp, forecast, location } = response;
+        const currentDiv = renderCurrentWeather(
+          condition,
+          currentTemp,
+          location,
+        );
+        const forecastDiv = renderForecastWeather(forecast);
+
+        contentDiv.appendChild(currentDiv);
+        contentDiv.appendChild(forecastDiv);
+      }
+    });
+  });
+
+  contentDiv.appendChild(locationInput);
+  contentDiv.appendChild(locationButton);
 };
 
 export default renderAllWeather;
