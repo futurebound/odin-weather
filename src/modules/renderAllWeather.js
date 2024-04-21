@@ -5,22 +5,19 @@ const renderCurrentWeather = (condition, currentTemp, location) => {
 
   // const date = document.createElement('p');
   const name = document.createElement('p');
-  const region = document.createElement('p');
   const country = document.createElement('p');
   const icon = document.createElement('img');
   const description = document.createElement('p');
   const temp = document.createElement('p');
 
   // date.textContent = day.date;
-  name.textContent = location.name;
-  region.textContent = location.region;
+  name.textContent = `${location.name}, ${location.region}`;
   country.textContent = location.country;
   icon.src = condition.icon;
   description.textContent = condition.text;
   temp.textContent = `Current Temp: ${currentTemp} °F`;
 
   currentDiv.appendChild(name);
-  currentDiv.appendChild(region);
   currentDiv.appendChild(country);
   currentDiv.appendChild(icon);
   currentDiv.appendChild(description);
@@ -66,32 +63,51 @@ const renderForecastWeather = (forecast) => {
 
 const renderAllWeather = () => {
   const contentDiv = document.getElementById('content');
-  const locationInput = document.createElement('input');
-  const locationButton = document.createElement('button');
+  const searchDiv = document.createElement('div');
+  const weatherDiv = document.createElement('div');
 
-  locationButton.textContent = 'Search Location';
-  locationButton.addEventListener('click', () => {
+  const searchForm = document.createElement('form');
+  const searchLabel = document.createElement('label');
+  const searchInput = document.createElement('input');
+  const searchButton = document.createElement('button');
+
+  searchForm.id = 'search-form';
+  searchLabel.textContent = 'Location:';
+
+  searchInput.type = 'text';
+  searchLabel.appendChild(searchInput);
+
+  searchButton.type = 'submit';
+  searchButton.textContent = 'Get Weather';
+  searchButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    weatherDiv.replaceChildren(); // clear prior
+
     // PROMISE HANDLE STYLE w/ .then() since queryForecastWeater exports async function
-    const searchLocation = locationInput.value;
+    const searchLocation = searchInput.value;
     queryForecastWeather(searchLocation).then((response) => {
       console.log(response);
       if (response !== null) {
         const { condition, currentTemp, forecast, location } = response;
+
+        const forecastDiv = renderForecastWeather(forecast);
         const currentDiv = renderCurrentWeather(
           condition,
           currentTemp,
           location,
         );
-        const forecastDiv = renderForecastWeather(forecast);
 
-        contentDiv.appendChild(currentDiv);
-        contentDiv.appendChild(forecastDiv);
+        weatherDiv.appendChild(currentDiv);
+        weatherDiv.appendChild(forecastDiv);
+        contentDiv.appendChild(weatherDiv);
       }
     });
   });
 
-  contentDiv.appendChild(locationInput);
-  contentDiv.appendChild(locationButton);
+  searchForm.appendChild(searchLabel);
+  searchForm.appendChild(searchButton);
+  searchDiv.appendChild(searchForm);
+  contentDiv.appendChild(searchDiv);
 };
 
 export default renderAllWeather;
