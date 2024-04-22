@@ -49,10 +49,6 @@ button:hover {
   cursor: pointer;
 }
 
-#weather {
-  
-}
-
 #current, .day {
   display: flex;
   flex-direction: column;

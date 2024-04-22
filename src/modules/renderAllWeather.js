@@ -20,7 +20,6 @@ const renderAllWeather = () => {
   searchInput.type = 'text';
   searchLabel.appendChild(searchInput);
 
-  searchButton.type = 'submit';
   searchButton.textContent = 'Get Weather';
   searchButton.addEventListener('click', (event) => {
     event.preventDefault();
@@ -30,7 +29,10 @@ const renderAllWeather = () => {
     const searchLocation = searchInput.value;
     queryForecastWeather(searchLocation).then((response) => {
       console.log(response);
-      if (response !== null) {
+      if (response === null) {
+        // eslint-disable-next-line no-alert
+        alert(`No results found for ${searchLocation}`);
+      } else {
         const { condition, currentTemp, forecast, location } = response;
 
         const forecastDiv = renderForecastWeather(forecast);
