@@ -1,6 +1,80 @@
+@font-face {
+  font-family: open-sans;
+  src: url(./fonts/open-sans.ttf);
+}
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: open-sans;
+}
+
+body {
+  display: grid;
+  min-height: 100vh;
+}
+
+#content {
+  background-color: lightgrey;
+  border-radius: 8px;
+  padding: 12px;
+  place-self: center;
+  width: fit-content;
+
+  display: grid;
+  gap: 24px;
+}
+
+#search {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+input, button {
+  border: none;
+  border-radius: 8px;
+  margin-left: 8px;
+  padding: 4px 8px;
+}
+
+button {
+  background-color: lightgreen;
+  font-weight: bold;
+}
+
+button:hover {
+  box-shadow: 0 0 11px rgba(33, 33, 33, .2);
+  cursor: pointer;
+}
+
+#weather {
+  
+}
+
+#current, .day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#current {
+  padding: 8px;
+  border-radius: 8px;
+  background-color: white;
+  margin-bottom: 12px;
+}
+
+#forecast {
+  display: flex;
+  gap: 12px;
+}
+
+.day {
+  /* border: 2px black solid; */
+  min-width: 160px;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: white;
 }

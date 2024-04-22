@@ -12,7 +12,9 @@ const renderAllWeather = () => {
   const searchInput = document.createElement('input');
   const searchButton = document.createElement('button');
 
-  searchForm.id = 'search-form';
+  searchDiv.id = 'search';
+  weatherDiv.id = 'weather';
+
   searchLabel.textContent = 'Location:';
 
   searchInput.type = 'text';

@@ -1,20 +1,18 @@
 const renderCurrentWeather = (condition, currentTemp, location) => {
   const currentDiv = document.createElement('div');
+  currentDiv.id = 'current';
 
-  const name = document.createElement('p');
-  const country = document.createElement('p');
+  const locationInfo = document.createElement('p');
   const icon = document.createElement('img');
   const description = document.createElement('p');
   const temp = document.createElement('p');
 
-  name.textContent = `${location.name}, ${location.region}`;
-  country.textContent = location.country;
+  locationInfo.textContent = `Current Weather in ${location.name}, ${location.region} ${location.country}`;
   icon.src = condition.icon;
   description.textContent = condition.text;
-  temp.textContent = `Current Temp: ${currentTemp} °F`;
+  temp.textContent = `${currentTemp} °F`;
 
-  currentDiv.appendChild(name);
-  currentDiv.appendChild(country);
+  currentDiv.appendChild(locationInfo);
   currentDiv.appendChild(icon);
   currentDiv.appendChild(description);
   currentDiv.appendChild(temp);

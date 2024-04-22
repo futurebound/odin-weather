@@ -1,5 +1,7 @@
 const renderForecastWeather = (forecast) => {
   const forecastDiv = document.createElement('div');
+  forecastDiv.id = 'forecast';
+
   const days = forecast.map((day) => {
     const dayDiv = document.createElement('div');
     dayDiv.className = 'day';
